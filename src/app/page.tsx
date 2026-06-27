@@ -4,8 +4,7 @@ import {
   AppointmentPeriod,
   AppointmentPeriodDay,
 } from '@/types/appointment';
-import { PeriodSection } from '@/components/period-section';
-import { title } from 'process';
+import { PeriodSection } from '@/components/period-section/period-section';
 
 const appointments = [
   {
@@ -43,12 +42,12 @@ const appointments = [
 ];
 
 const getPeriod = (hour: number): AppointmentPeriodDay => {
-  if (hour > 9 && hour < 12) return 'morning';
-  if (hour > 13 && hour < 19) return 'morning';
+  if (hour >= 9 && hour < 12) return 'morning';
+  if (hour >= 13 && hour < 18) return 'afternoon';
   return 'evening';
 };
 
-function groupAppointmentsByPeriod(
+function groupAppointmentByPeriod(
   appointments: AppointmentPrisma[]
 ): AppointmentPeriod[] {
   const transformedAppointments: Appointment[] = appointments?.map((apt) => ({
@@ -85,7 +84,7 @@ function groupAppointmentsByPeriod(
       appointments: afternoonAppointments,
     },
     {
-      title: 'Noite',
+      title: 'Manhã',
       type: 'evening',
       timeRange: '19h-21h',
       appointments: eveningAppointments,
@@ -94,14 +93,14 @@ function groupAppointmentsByPeriod(
 }
 
 export default function Home() {
-  const periods = groupAppointmentsByPeriod(appointments);
+  const periods = groupAppointmentByPeriod(appointments);
 
   return (
     <div className="bg-background-primary p-6">
-      <div className="flex items-center justify-between md:m-8 ">
+      <div className="flex items-center justify-between md:m-8">
         <div>
-          <h1 className="text-title-size text-content-primary mb-2 ">
-            Sua agenda
+          <h1 className="text-title-size text-content-primary mb-2">
+            Sua Agenda
           </h1>
           <p className="text-paragraph-medium-size text-content-secondary">
             Aqui você pode ver todos os clientes e serviços agendados para hoje.
