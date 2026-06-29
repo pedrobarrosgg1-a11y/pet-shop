@@ -1,5 +1,4 @@
 import { AppointmentPeriod } from '@/types/appointment';
-import { Cloudy, Moon, Sun } from 'lucide-react';
 import { AppointmentCard } from '../appointment-card';
 
 type PeriodSectionProps = {
@@ -7,9 +6,9 @@ type PeriodSectionProps = {
 };
 
 const periodIcons = {
-  morning: <Sun className="text-accent-blue" />,
-  afternoon: <Cloudy className="text-accent-orange" />,
-  evening: <Moon className="text-accent-yellow" />,
+  morning: <img src="/Sun.svg" alt="lua" />,
+  afternoon: <img src="/Cloudy.svg" alt="lua" />,
+  evening: <img src="/Moon.svg" alt="lua" />,
 };
 
 export const PeriodSection = ({ period }: PeriodSectionProps) => {
@@ -36,7 +35,11 @@ export const PeriodSection = ({ period }: PeriodSectionProps) => {
             </div>
 
             {period.appointments.map((appointment, index) => (
-              <AppointmentCard key={index} appointment={appointment} />
+              <AppointmentCard
+                key={index}
+                appointment={appointment}
+                isFirstInSection={index === 0}
+              />
             ))}
           </div>
         </div>
